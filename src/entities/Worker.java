@@ -12,7 +12,7 @@ public class Worker {
 	private WorkerLevel level;
 	private Double baseSalary;
 	
-	private Department department;
+	private Department department;// fazendo associacao com a classe department
 	
 	// no construtor nao vou incluir a lista
 	
@@ -22,7 +22,6 @@ public class Worker {
 	public Worker() {}
 
 	public Worker(String name, WorkerLevel level, Double baseSalary, Department department) {
-		super();
 		this.name = name;
 		this.level = level;
 		this.baseSalary = baseSalary;
@@ -64,7 +63,9 @@ public class Worker {
 	public List<HourContract> getContracts() {
 		return contracts;
 	}
-
+	
+					/*	METODOS*/
+	
 	public void addContract(HourContract contract) {
 		contracts.add(contract);
 	}
@@ -73,7 +74,7 @@ public class Worker {
 		contracts.remove(contract);
 	}
 	
-	public double income(int year, int mounth) {
+	public double income(int year, int month) {
 		double sum = baseSalary;
 		
 		//calendar
@@ -81,11 +82,15 @@ public class Worker {
 	Calendar calendar = Calendar.getInstance();
 	
 	for(HourContract contract : contracts){
-		//pegando a data d contato e setando o calendario para ele
+		//pegando a data d contrato e setando como data base para o calendario
 		calendar.setTime(contract.getDate());
 		int yearContract = calendar.get(Calendar.YEAR);
-		System.out.println("ANO CONTRATO");
-		System.out.println(yearContract);
+		int monthContract = 1 + calendar.get(Calendar.MONTH);
+		
+		if(year == yearContract && month == monthContract) {
+			sum += contract.totalValue();
+		}
+		
 	}
 		
 		return sum;
